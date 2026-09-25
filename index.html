@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="icon" type="image/png"
+    href="https://zdinvxowzpkolbfzpcac.supabase.co/storage/v1/object/public/portfolio/logo.png">
+
   <title>IntelliCore Systems</title>
 
   <link rel="stylesheet" href="css/style.css">
@@ -17,8 +20,15 @@
 
     <div class="container nav-container">
 
-      <a href="#" class="logo">
-        Intelli<span>Core</span>
+      <a href="#home" class="brand-logo">
+
+        <img src="https://zdinvxowzpkolbfzpcac.supabase.co/storage/v1/object/public/portfolio/logo.png"
+          alt="IntelliCore Systems Logo">
+
+        <span class="brand-text">
+          Intelli<span>Core</span> Systems
+        </span>
+
       </a>
 
       <nav id="navMenu">
@@ -241,6 +251,8 @@
 
 
   <!-- PORTFOLIO -->
+
+  <!-- PORTFOLIO -->
   <section class="section" id="portfolio">
 
     <div class="container">
@@ -256,116 +268,121 @@
         </h2>
 
         <p>
-          Some of the systems and digital projects
-          developed by IntelliCore Systems.
+          Selected systems and digital solutions developed
+          to support modern business operations.
+        </p>
+
+        <a href="#portfolioCarousel" class="portfolio-explore-link">
+          Explore Live Projects →
+        </a>
+
+        <p class="portfolio-note">
+          Explore selected live systems and business solutions below.
         </p>
 
       </div>
 
+      <div class="portfolio-wrapper">
 
-      <div class="portfolio-grid">
+        <button class="carousel-btn prev" id="portfolioPrev">
+          ‹
+        </button>
 
+        <div class="portfolio-carousel" id="portfolioCarousel">
 
-        <div class="project-card">
+          <!-- CARD 1 -->
+          <div class="project-card">
 
-          <div class="project-preview">
-            Project Screenshot
+            <div class="project-preview">
+              <img src="https://zdinvxowzpkolbfzpcac.supabase.co/storage/v1/object/public/portfolio/drin-ecommerce.jpg"
+                alt="Drin Electronics E-Commerce Platform">
+            </div>
+
+            <div class="project-info">
+
+              <span>E-COMMERCE SOLUTION</span>
+
+              <h3>
+                Drin Electronics E-Commerce Platform
+              </h3>
+
+              <p>
+                Complete e-commerce platform with flexible payments,
+                courier integration, automated waybill generation and
+                real-time delivery status updates.
+              </p>
+
+              <a href="https://www.drinelectronicsph.com/" target="_blank" rel="noopener noreferrer"
+                class="project-link">
+                View Live Project →
+              </a>
+
+            </div>
+
           </div>
 
-          <div class="project-info">
 
-            <span>
-              E-COMMERCE
-            </span>
+          <!-- CARD 2 -->
+          <div class="project-card">
 
-            <h3>
-              Online Store System
-            </h3>
+            <div class="project-preview">
+              <img
+                src="https://zdinvxowzpkolbfzpcac.supabase.co/storage/v1/object/public/portfolio/drin-admin-dashboard.jpg"
+                alt="Drin Electronics Admin Dashboard">
+            </div>
 
-            <p>
-              Product, customer and order management system.
-            </p>
+            <div class="project-info">
+
+              <span>BUSINESS MANAGEMENT SYSTEM</span>
+
+              <h3>
+                Central Admin Dashboard
+              </h3>
+
+              <p>
+                Centralized dashboard for orders, inventory,
+                customers, sales analytics and store operations.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- CARD 3 -->
+          <div class="project-card">
+
+            <div class="project-preview">
+              <img
+                src="https://zdinvxowzpkolbfzpcac.supabase.co/storage/v1/object/public/portfolio/Business%20Automation.jpg"
+                alt="Business Automation">
+            </div>
+
+            <div class="project-info">
+
+              <span>BUSINESS AUTOMATION</span>
+
+              <h3>
+                Integrated Business Workflow
+              </h3>
+
+              <p>
+                Automated dashboard syncing, inventory updates,
+                courier and waybill generation, customer notifications,
+                analytics and reporting.
+              </p>
+
+            </div>
 
           </div>
 
         </div>
 
-
-        <div class="project-card">
-
-          <div class="project-preview">
-            Project Screenshot
-          </div>
-
-          <div class="project-info">
-
-            <span>
-              BUSINESS SYSTEM
-            </span>
-
-            <h3>
-              Order Management Dashboard
-            </h3>
-
-            <p>
-              Centralized dashboard for managing customer orders.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-card">
-
-          <div class="project-preview">
-            Project Screenshot
-          </div>
-
-          <div class="project-info">
-
-            <span>
-              AUTOMATION
-            </span>
-
-            <h3>
-              Business Automation
-            </h3>
-
-            <p>
-              Workflow automation designed to reduce manual tasks.
-            </p>
-
-          </div>
-
-        </div>
-
+        <button class="carousel-btn next" id="portfolioNext">
+          ›
+        </button>
 
       </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CTA -->
-  <section class="cta">
-
-    <div class="container">
-
-      <h2>
-        Have a project in mind?
-      </h2>
-
-      <p>
-        Let's build a smarter digital solution for your business.
-      </p>
-
-      <a href="#contact" class="btn btn-primary">
-        Start a Project
-      </a>
-
-    </div>
 
   </section>
 
@@ -394,13 +411,15 @@
 
       <div class="contact-box">
 
-        <a href="mailto:hello@intellicoresystems.com">
-          hello@intellicoresystems.com
+        <a href="mailto:drindigitalhub@gmail.com">
+          drindigitalhub@gmail.com
+        </a>
+
+        <a href="tel:+639771791295">
+          +63 977 179 1295
         </a>
 
       </div>
-
-    </div>
 
   </section>
 
