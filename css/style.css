@@ -1023,6 +1023,9 @@ footer {
     .industry-marquee {
         overflow-x: auto;
         scrollbar-width: none;
+        scroll-snap-type: x proximity;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
     }
 
     .industry-marquee::-webkit-scrollbar {
@@ -1031,13 +1034,14 @@ footer {
 
     .industry-track {
         animation: none;
-
         padding: 0 18px 10px;
+        gap: 16px;
     }
 
     .industry-card {
-        flex: 0 0 82vw;
-        max-width: 320px;
+        flex: 0 0 clamp(270px, 80vw, 320px);
+        scroll-snap-align: start;
+        scroll-snap-stop: normal;
     }
 
 }
@@ -1202,7 +1206,7 @@ body.modal-open {
 
 .contact-info {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     align-items: stretch;
 }
@@ -1302,17 +1306,6 @@ body.modal-open {
     }
 }
 
-/* MOBILE */
-
-@media (max-width: 650px) {
-    .why-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .why-card {
-        padding: 24px;
-    }
-}
 
 /* =========================
    ABOUT US
@@ -1360,4 +1353,14 @@ body.modal-open {
         grid-template-columns: 1fr;
         gap: 30px;
     }
+}
+
+.contact-item a {
+    color: #36a3ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
 }
