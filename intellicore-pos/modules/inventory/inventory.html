@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Inventory</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="inventory.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="inventory-page">
+
+        <section class="page-header">
+            <div>
+                <h1>Inventory</h1>
+                <p>
+                    Manage stock levels, stock movements,
+                    suppliers, and low-stock alerts.
+                </p>
+            </div>
+
+            <button id="stockMovementBtn" class="btn btn-primary">
+                + Stock Movement
+            </button>
+        </section>
+
+
+        <section class="inventory-stats">
+
+            <article class="stat-card">
+                <span>Total Products</span>
+                <strong id="totalProducts">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Total Stock Qty</span>
+                <strong id="totalStockQty">0</strong>
+            </article>
+
+            <article class="stat-card warning">
+                <span>Low Stock</span>
+                <strong id="lowStockCount">0</strong>
+            </article>
+
+            <article class="stat-card danger">
+                <span>Out of Stock</span>
+                <strong id="outOfStockCount">0</strong>
+            </article>
+
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search product, SKU, barcode..." />
+
+            <select id="stockFilter">
+                <option value="all">All Stock Status</option>
+                <option value="normal">Normal Stock</option>
+                <option value="low">Low Stock</option>
+                <option value="out">Out of Stock</option>
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-header">
+                <div>
+                    <h2>Current Inventory</h2>
+                    <p>Live stock levels from your products database.</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>Barcode</th>
+                            <th>Category</th>
+                            <th>Unit</th>
+                            <th>Current Stock</th>
+                            <th>Reorder Level</th>
+                            <th>Stock Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="inventoryTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div id="inventoryPagination" class="inventory-pagination">
+            <button id="inventoryPrevBtn" type="button">Prev</button>
+
+            <div id="inventoryPageNumbers" class="page-numbers"></div>
+
+            <button id="inventoryNextBtn" type="button">Next</button>
+        </div>
+
+        <section class="history-card">
+
+            <div class="table-header">
+                <div>
+                    <h2>Stock Movement History</h2>
+                    <p>Track stock in, stock out, and inventory adjustments.</p>
+                </div>
+
+                <button id="clearHistoryBtn" class="btn btn-secondary">
+                    Clear History
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Reference</th>
+                            <th>Product</th>
+                            <th>Type</th>
+                            <th>Quantity</th>
+                            <th>Before</th>
+                            <th>After</th>
+                            <th>Supplier</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="historyTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div id="historyPagination" class="inventory-pagination">
+            <button id="historyPrevBtn" type="button">Prev</button>
+
+            <div id="historyPageNumbers" class="page-numbers"></div>
+
+            <button id="historyNextBtn" type="button">Next</button>
+        </div>
+
+    </main>
+
+
+    <!-- STOCK MOVEMENT MODAL -->
+
+    <div id="stockModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+                <div>
+                    <h2>Stock Movement</h2>
+                    <p>Add stock, remove stock, or make an adjustment.</p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+            </div>
+
+
+            <form id="stockForm">
+
+                <div class="form-group">
+
+                    <label for="productSelect">
+                        Product
+                    </label>
+
+                    <select id="productSelect" required>
+                        <option value="">
+                            Select Product
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="movementType">
+                            Movement Type
+                        </label>
+
+                        <select id="movementType" required>
+                            <option value="stock-in">
+                                Stock In
+                            </option>
+
+                            <option value="stock-out">
+                                Stock Out
+                            </option>
+
+                            <option value="adjustment-add">
+                                Adjustment +
+                            </option>
+
+                            <option value="adjustment-minus">
+                                Adjustment -
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="movementQuantity">
+                            Quantity
+                        </label>
+
+                        <input type="number" id="movementQuantity" min="1" step="1">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="supplierSelect">
+                            Supplier
+                        </label>
+
+                        <select id="supplierSelect">
+                            <option value="">
+                                No Supplier
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="referenceNumber">
+                            Reference No.
+                        </label>
+
+                        <input type="text" id="referenceNumber" placeholder="Example: DR-000123" />
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="movementRemarks">
+                        Remarks
+                    </label>
+
+                    <textarea id="movementRemarks" rows="3" placeholder="Optional notes..."></textarea>
+
+                </div>
+
+
+                <div class="current-stock-preview">
+
+                    <span>Current Stock</span>
+
+                    <strong id="selectedCurrentStock">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Movement
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div id="clearHistoryModal" class="confirm-modal hidden">
+
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">
+                !
+            </div>
+
+            <h3>Clear Inventory History?</h3>
+
+            <p>
+                This will permanently remove all stock movement history.
+            </p>
+
+            <div class="confirm-actions">
+
+                <button id="cancelClearHistory" class="confirm-cancel-btn" type="button">
+                    Cancel
+                </button>
+
+                <button id="confirmClearHistory" class="confirm-danger-btn" type="button">
+                    Clear History
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="premiumPopup" class="premium-popup hidden">
+
+        <div id="premiumPopupIcon" class="premium-popup-icon">
+            !
+        </div>
+
+        <div class="premium-popup-content">
+            <strong id="premiumPopupTitle">
+                Alert
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Message
+            </span>
+        </div>
+
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="inventory.js"></script>
+</body>
+
+</html>

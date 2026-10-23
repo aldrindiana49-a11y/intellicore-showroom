@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Dashboard</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <div id="header-container"></div>
+
+    <main class="dashboard-page">
+
+        <section class="page-header">
+            <div>
+                <h1>Dashboard</h1>
+                <p>
+                    Overview of sales, orders, products,
+                    customers, and inventory.
+                </p>
+            </div>
+
+            <div class="date-box">
+                <span>Today</span>
+                <strong id="currentDate">—</strong>
+            </div>
+        </section>
+
+
+        <!-- MAIN STATS -->
+
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <span>Today's Sales</span>
+                <strong id="todaySales">₱0.00</strong>
+                <small id="todayOrdersText">0 orders today</small>
+            </article>
+
+
+            <article class="stat-card">
+                <span>Total Orders</span>
+                <strong id="totalOrders">0</strong>
+                <small>Completed transactions</small>
+            </article>
+
+
+            <article class="stat-card">
+                <span>Total Products</span>
+                <strong id="totalProducts">0</strong>
+                <small>Registered products</small>
+            </article>
+
+
+            <article class="stat-card">
+                <span>Total Customers</span>
+                <strong id="totalCustomers">0</strong>
+                <small>Registered customers</small>
+            </article>
+
+        </section>
+
+
+        <!-- INVENTORY STATS -->
+
+        <section class="inventory-summary">
+
+            <article class="mini-card">
+                <span>Low Stock</span>
+                <strong id="lowStockCount">0</strong>
+            </article>
+
+            <article class="mini-card danger-card">
+                <span>Out of Stock</span>
+                <strong id="outOfStockCount">0</strong>
+            </article>
+
+            <article class="mini-card">
+                <span>Total Stock Qty</span>
+                <strong id="totalStockQty">0</strong>
+            </article>
+
+            <article class="mini-card">
+                <span>Inventory Asset Value</span>
+                <strong id="inventoryAssetValue">₱0.00</strong>
+            </article>
+
+            <article class="mini-card">
+                <span>Today's Discounts</span>
+                <strong id="todayDiscount">₱0.00</strong>
+            </article>
+
+        </section>
+
+
+        <!-- ROW 1 -->
+
+        <section class="dashboard-grid">
+
+            <!-- SALES OVERVIEW -->
+
+            <article class="dashboard-card sales-overview-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>Sales Overview</h2>
+                        <p id="salesOverviewSubtitle">
+                            Sales performance for the last 7 days.
+                        </p>
+                    </div>
+
+                    <div class="sales-range-filter">
+
+                        <button class="sales-range-btn" data-range="day">
+                            Day
+                        </button>
+
+                        <button class="sales-range-btn active" data-range="week">
+                            Week
+                        </button>
+
+                        <button class="sales-range-btn" data-range="month">
+                            Month
+                        </button>
+
+                        <button class="sales-range-btn" data-range="year">
+                            Year
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="sales-overview-summary">
+
+                    <div>
+                        <span>Sales</span>
+                        <strong id="rangeSales">₱0.00</strong>
+                    </div>
+
+                    <div>
+                        <span>Transactions</span>
+                        <strong id="rangeTransactions">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Average Order</span>
+                        <strong id="rangeAverageOrder">₱0.00</strong>
+                    </div>
+
+                </div>
+
+                <div class="sales-chart-wrapper">
+                    <canvas id="salesOverviewChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <!-- PAYMENT BREAKDOWN -->
+
+            <article class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Payment Breakdown</h2>
+                        <p>Today's payment methods.</p>
+                    </div>
+                </div>
+
+                <div id="paymentBreakdown" class="payment-list"></div>
+
+            </article>
+
+        </section>
+
+
+        <!-- COMPACT TOP PRODUCTS -->
+
+        <section class="dashboard-card compact-top-products">
+
+            <div class="card-header">
+                <div>
+                    <h2>Top Selling Products</h2>
+                    <p>Top products based on quantity sold today.</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Sales</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="topProductsBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROW 2 -->
+
+        <section class="dashboard-grid">
+
+            <!-- RECENT ORDERS -->
+
+            <article class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Recent Orders</h2>
+                        <p>Latest POS transactions.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Time</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentOrdersBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </article>
+
+
+            <!-- LOW STOCK -->
+
+            <article class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Inventory Alerts</h2>
+                        <p>Products requiring attention.</p>
+                    </div>
+                </div>
+
+                <div id="inventoryAlerts" class="alert-list"></div>
+
+            </article>
+
+        </section>
+
+
+        <!-- TODAY SUMMARY -->
+
+        <section class="dashboard-card summary-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Today's Summary</h2>
+                    <p>Quick overview of today's performance.</p>
+                </div>
+            </div>
+
+            <div class="summary-grid">
+
+                <div class="summary-item">
+                    <span>Gross Sales</span>
+                    <strong id="summaryGrossSales">₱0.00</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Discounts</span>
+                    <strong id="summaryDiscounts">₱0.00</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Net Sales</span>
+                    <strong id="summaryNetSales">₱0.00</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Items Sold</span>
+                    <strong id="summaryItemsSold">0</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Average Order</span>
+                    <strong id="summaryAverageOrder">₱0.00</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+
+    <script src="../../components/auth.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>

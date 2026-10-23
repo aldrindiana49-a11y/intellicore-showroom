@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Reports</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="reports.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="reports-page">
+
+        <section class="page-header">
+
+            <div>
+                <h1>Reports</h1>
+                <p>
+                    Analyze sales, payments, products,
+                    discounts, and estimated gross profit.
+                </p>
+            </div>
+
+            <div class="header-actions">
+
+                <button id="exportCsvBtn" class="btn btn-secondary">
+                    Export CSV
+                </button>
+
+                <button id="printReportBtn" class="btn btn-primary">
+                    Print Report
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FILTERS -->
+
+        <section class="filter-card">
+
+            <div class="filter-group">
+
+                <label for="startDate">
+                    Start Date
+                </label>
+
+                <input type="date" id="startDate" />
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="endDate">
+                    End Date
+                </label>
+
+                <input type="date" id="endDate" />
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="paymentFilter">
+                    Payment Method
+                </label>
+
+                <select id="paymentFilter">
+
+                    <option value="all">
+                        All Payments
+                    </option>
+
+                    <option value="Cash">
+                        Cash
+                    </option>
+
+                    <option value="GCash">
+                        GCash
+                    </option>
+
+                    <option value="Card">
+                        Card
+                    </option>
+
+                    <option value="Maya">
+                        Maya
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button id="applyFilterBtn" class="btn btn-primary">
+                Apply Filter
+            </button>
+
+
+            <button id="resetFilterBtn" class="btn btn-secondary">
+                Reset
+            </button>
+
+        </section>
+
+
+        <!-- SUMMARY CARDS -->
+
+        <section class="report-stats">
+
+            <article class="stat-card">
+
+                <span>Total Sales</span>
+
+                <strong id="totalSales">
+                    ₱0.00
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>Total Orders</span>
+
+                <strong id="totalOrders">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>Total Discount</span>
+
+                <strong id="totalDiscount">
+                    ₱0.00
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>Average Order</span>
+
+                <strong id="averageOrder">
+                    ₱0.00
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>Estimated Gross Profit</span>
+
+                <strong id="grossProfit">
+                    ₱0.00
+                </strong>
+
+            </article>
+
+            <article class="stat-card">
+
+                <span>Total Expenses</span>
+
+                <strong id="totalExpenses">
+                    ₱0.00
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>Net Profit</span>
+
+                <strong id="netProfit">
+                    ₱0.00
+                </strong>
+
+            </article>
+
+        </section>
+
+
+        <!-- PAYMENT BREAKDOWN -->
+
+        <section class="report-grid">
+
+            <article class="report-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>Payment Breakdown</h2>
+                        <p>Sales grouped by payment method.</p>
+                    </div>
+
+                </div>
+
+                <div id="paymentBreakdown" class="breakdown-list"></div>
+
+            </article>
+
+
+            <!-- TOP PRODUCTS -->
+
+            <article class="report-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>Top Selling Products</h2>
+                        <p>Products ranked by quantity sold.</p>
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty Sold</th>
+                                <th>Sales</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="topProductsBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- CATEGORY SALES -->
+
+        <section class="report-card large-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Sales by Category</h2>
+                    <p>
+                        Product sales grouped by category.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Quantity Sold</th>
+                            <th>Total Sales</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="categorySalesBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- EXPENSES REPORT -->
+
+        <section class="report-card large-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Expenses Breakdown</h2>
+
+                    <p>
+                        Operating expenses for the selected period.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Reference</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="expensesReportBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- TRANSACTION REPORT -->
+
+        <section class="report-card large-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Sales Transactions</h2>
+                    <p>
+                        Detailed transaction report for the selected period.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Order No.</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Subtotal</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="transactionsBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="reports.js"></script>
+</body>
+
+</html>

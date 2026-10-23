@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IntelliCore POS - Categories</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="categories.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="categories-page">
+
+        <section class="page-header">
+            <div>
+                <h1>Categories</h1>
+                <p>Manage product categories used across your grocery POS.</p>
+            </div>
+
+            <button id="addCategoryBtn" class="btn btn-primary">
+                + Add Category
+            </button>
+        </section>
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search category..." />
+
+            <select id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+        </section>
+
+        <section class="table-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="categoryTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div id="categoryPagination" class="category-pagination">
+            <button id="prevPageBtn" type="button">Prev</button>
+
+            <div id="pageNumbers" class="page-numbers"></div>
+
+            <button id="nextPageBtn" type="button">Next</button>
+        </div>
+
+    </main>
+
+
+    <!-- CATEGORY MODAL -->
+
+    <div id="categoryModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modalTitle">Add Category</h2>
+                    <p>Create a product category.</p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <form id="categoryForm">
+
+                <input type="hidden" id="categoryId" />
+
+
+                <div class="form-group">
+
+                    <label for="categoryName">
+                        Category Name
+                    </label>
+
+                    <input type="text" id="categoryName" placeholder="Example: Beverages" required />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="categoryDescription">
+                        Description
+                    </label>
+
+                    <textarea id="categoryDescription" rows="4" placeholder="Optional category description"></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="categoryStatus">
+                        Status
+                    </label>
+
+                    <select id="categoryStatus">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Category
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div id="premiumPopup" class="premium-popup hidden">
+        <div id="premiumPopupIcon" class="premium-popup-icon">!</div>
+
+        <div class="premium-popup-content">
+            <strong id="premiumPopupTitle">Alert</strong>
+            <span id="premiumPopupMessage">Message</span>
+        </div>
+    </div>
+
+    <div id="deleteCategoryModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">!</div>
+
+            <h3>Delete Category?</h3>
+
+            <p id="deleteCategoryMessage">
+                Are you sure you want to delete this category?
+            </p>
+
+            <div class="confirm-actions">
+                <button id="cancelDeleteCategory" class="confirm-cancel-btn" type="button">
+                    Cancel
+                </button>
+
+                <button id="confirmDeleteCategory" class="confirm-danger-btn" type="button">
+                    Delete
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="categories.js"></script>
+
+</body>
+
+</html>

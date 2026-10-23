@@ -1,0 +1,303 @@
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 220px;
+    right: 0;
+    height: 70px;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+
+    padding: 0 24px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+
+    z-index: 900;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-left h2 {
+    font-size: 20px;
+    color: #111827;
+}
+
+.menu-btn {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    color: #374151;
+}
+
+.header-center {
+    display: flex;
+    justify-content: center;
+}
+
+.header-center input {
+    width: 100%;
+    max-width: 520px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+
+    padding: 11px 14px;
+
+    outline: none;
+    background: #f9fafb;
+}
+
+.header-center input:focus {
+    background: white;
+    border-color: #2563eb;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pos-header-btn {
+    text-decoration: none;
+
+    border: 1px solid #2563eb;
+
+    color: #2563eb;
+    background: white;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.pos-header-btn:hover {
+    background: #eff6ff;
+}
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    background: transparent;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.icon-btn:hover {
+    background: #f3f4f6;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dbeafe;
+    color: #1d4ed8;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.admin-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-info strong {
+    font-size: 13px;
+    color: #111827;
+}
+
+.admin-info span {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* SIDEBAR COLLAPSED */
+
+body.sidebar-collapsed .top-header {
+    left: 0;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .top-header {
+        left: 0;
+        grid-template-columns: auto 1fr;
+    }
+
+    .header-center {
+        display: none;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .top-header {
+        padding: 0 14px;
+    }
+
+    .pos-header-btn {
+        display: none;
+    }
+
+}
+
+.terminal-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 9px 14px;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 9px;
+
+    background: #f9fafb;
+
+    font-size: 12px;
+    color: #4b5563;
+
+    white-space: nowrap;
+}
+
+.scanner-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.scanner-status {
+    font-weight: 700;
+    color: #15803d;
+}
+
+.terminal-divider {
+    color: #cbd5e1;
+}
+
+.scanner-dot.scanner-success {
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.scanner-dot.scanner-error {
+    background: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.store-header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.store-header-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.store-header-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.15;
+}
+
+.store-header-text strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.store-header-text span {
+    margin-top: 3px;
+    font-size: 10px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.store-header-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    border-radius: 8px;
+    padding: 3px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.logout-btn {
+    border: none;
+    background: #fee2e2;
+    color: #dc2626;
+
+    padding: 8px 12px;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #fecaca;
+    color: #b91c1c;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Orders</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="orders.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="orders-page">
+
+        <section class="page-header">
+
+            <div>
+                <h1>Orders</h1>
+                <p>
+                    View completed POS transactions,
+                    payment details, and receipts.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="order-stats">
+
+            <article class="stat-card">
+                <span>Total Orders</span>
+                <strong id="totalOrders">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Total Sales</span>
+                <strong id="totalSales">₱0.00</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Cash Sales</span>
+                <strong id="cashSales">₱0.00</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Non-Cash Sales</span>
+                <strong id="nonCashSales">₱0.00</strong>
+            </article>
+
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search order number..." />
+
+            <select id="paymentFilter">
+
+                <option value="all">
+                    All Payment Methods
+                </option>
+
+                <option value="Cash">
+                    Cash
+                </option>
+
+                <option value="GCash">
+                    GCash
+                </option>
+
+                <option value="Card">
+                    Card
+                </option>
+
+                <option value="Maya">
+                    Maya
+                </option>
+
+                <option value="Split">
+                    Split Payment
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All Status
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+                <option value="Cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <div>
+                    <h2>Transaction History</h2>
+                    <p>
+                        Orders created from the POS Terminal.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Order No.</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Subtotal</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="ordersTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div id="orderPagination" class="order-pagination">
+            <button id="prevPageBtn" type="button">Prev</button>
+
+            <div id="pageNumbers" class="page-numbers"></div>
+
+            <button id="nextPageBtn" type="button">Next</button>
+        </div>
+
+    </main>
+
+
+    <!-- ORDER DETAILS MODAL -->
+
+    <div id="orderModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Order Details</h2>
+                    <p id="modalOrderNumber">
+                        Order
+                    </p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <div id="orderDetails" class="order-details"></div>
+
+
+            <div class="modal-actions">
+
+                <button id="printReceiptBtn" class="btn btn-secondary">
+                    Print Receipt
+                </button>
+
+                <button id="closeOrderBtn" class="btn btn-primary">
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="voidOrderModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">!</div>
+
+            <h3>Void Transaction?</h3>
+
+            <p id="voidOrderMessage">
+                Are you sure you want to void this transaction?
+            </p>
+
+            <div class="confirm-actions">
+                <button id="cancelVoidOrder" class="confirm-cancel-btn" type="button">
+                    Cancel
+                </button>
+
+                <button id="confirmVoidOrder" class="confirm-danger-btn" type="button">
+                    Void Transaction
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="premiumPopup" class="premium-popup hidden">
+        <div id="premiumPopupIcon" class="premium-popup-icon">!</div>
+
+        <div class="premium-popup-content">
+            <strong id="premiumPopupTitle">Alert</strong>
+            <span id="premiumPopupMessage">Message</span>
+        </div>
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="orders.js"></script>
+
+</body>
+
+</html>

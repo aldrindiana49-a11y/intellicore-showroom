@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Suppliers</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="suppliers.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="suppliers-page">
+
+        <section class="page-header">
+            <div>
+                <h1>Suppliers</h1>
+                <p>
+                    Manage grocery suppliers, contacts,
+                    addresses, and supplier status.
+                </p>
+            </div>
+
+            <button id="addSupplierBtn" class="btn btn-primary">
+                + Add Supplier
+            </button>
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search supplier, contact, phone, email..." />
+
+            <select id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Supplier</th>
+                            <th>Contact Person</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="supplierTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div id="supplierPagination" class="supplier-pagination">
+            <button id="prevPageBtn" type="button">Prev</button>
+
+            <div id="pageNumbers" class="page-numbers"></div>
+
+            <button id="nextPageBtn" type="button">Next</button>
+        </div>
+
+    </main>
+
+
+    <!-- SUPPLIER MODAL -->
+
+    <div id="supplierModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modalTitle">
+                        Add Supplier
+                    </h2>
+
+                    <p>
+                        Enter supplier information.
+                    </p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <form id="supplierForm">
+
+                <input type="hidden" id="supplierId" />
+
+
+                <div class="form-group">
+
+                    <label for="supplierName">
+                        Supplier Name
+                    </label>
+
+                    <input type="text" id="supplierName" placeholder="Example: ABC Grocery Trading" required />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="contactPerson">
+                        Contact Person
+                    </label>
+
+                    <input type="text" id="contactPerson" placeholder="Example: Juan Dela Cruz" />
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="supplierPhone">
+                            Phone Number
+                        </label>
+
+                        <input type="text" id="supplierPhone" placeholder="09XXXXXXXXX" />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="supplierEmail">
+                            Email
+                        </label>
+
+                        <input type="email" id="supplierEmail" placeholder="supplier@email.com" />
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="supplierAddress">
+                        Address
+                    </label>
+
+                    <textarea id="supplierAddress" rows="3" placeholder="Supplier address"></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="supplierStatus">
+                        Status
+                    </label>
+
+                    <select id="supplierStatus">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Supplier
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div id="deleteSupplierModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">!</div>
+
+            <h3>Delete Supplier?</h3>
+
+            <p id="deleteSupplierMessage">
+                Are you sure you want to delete this supplier?
+            </p>
+
+            <div class="confirm-actions">
+                <button id="cancelDeleteSupplier" class="confirm-cancel-btn" type="button">
+                    Cancel
+                </button>
+
+                <button id="confirmDeleteSupplier" class="confirm-danger-btn" type="button">
+                    Delete
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PREMIUM POPUP -->
+
+    <div id="premiumPopup" class="premium-popup hidden">
+
+        <div id="premiumPopupIcon" class="premium-popup-icon">
+            ✓
+        </div>
+
+        <div class="premium-popup-content">
+
+            <strong id="premiumPopupTitle">
+                Success
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Action completed successfully.
+            </span>
+
+        </div>
+
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="suppliers.js"></script>
+
+</body>
+
+</html>

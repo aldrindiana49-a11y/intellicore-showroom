@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Users / Roles</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="users.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="users-page">
+
+        <section class="page-header">
+
+            <div>
+                <h1>Users / Roles</h1>
+                <p>
+                    Manage system users, roles, access, and account status.
+                </p>
+            </div>
+
+            <button id="addUserBtn" class="btn btn-primary" type="button">
+                + Add User
+            </button>
+
+        </section>
+
+
+        <section class="user-stats">
+
+            <article class="stat-card">
+                <span>Total Users</span>
+                <strong id="totalUsers">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Active Users</span>
+                <strong id="activeUsers">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Head Cashiers</span>
+                <strong id="headCashierUsers">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Receivers</span>
+                <strong id="receiverUsers">0</strong>
+            </article>
+
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search name or username..." />
+
+            <select id="roleFilter">
+                <option value="all">All Roles</option>
+
+                <option value="Owner">
+                    Owner
+                </option>
+
+                <option value="Manager">
+                    Manager
+                </option>
+
+                <option value="Head Cashier">
+                    Head Cashier
+                </option>
+
+                <option value="Cashier">
+                    Cashier
+                </option>
+
+                <option value="Receiver / Stock Clerk">
+                    Receiver / Stock Clerk
+                </option>
+
+                <option value="Pricing Staff">
+                    Pricing Staff
+                </option>
+
+                <option value="Marketing Staff">
+                    Marketing Staff
+                </option>
+            </select>
+
+            <select id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <div>
+                    <h2>User Accounts</h2>
+                    <p>
+                        Registered IntelliCore POS users.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="userTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <div id="userPagination" class="user-pagination">
+
+            <button id="prevUserPageBtn" type="button">
+                Prev
+            </button>
+
+            <div id="userPageNumbers" class="user-page-numbers"></div>
+
+            <button id="nextUserPageBtn" type="button">
+                Next
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- ADD / EDIT USER MODAL -->
+
+    <div id="userModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modalTitle">
+                        Add User
+                    </h2>
+
+                    <p>
+                        Enter user account information.
+                    </p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <form id="userForm">
+
+                <input type="hidden" id="userId" />
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input type="text" id="fullName" required />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <input type="text" id="username" autocomplete="off" required />
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="userRole">
+                            Role
+                        </label>
+
+                        <select id="userRole" required>
+                            <option value="Cashier">
+                                Cashier
+                            </option>
+
+                            <option value="Head Cashier">
+                                Head Cashier
+                            </option>
+
+                            <option value="Receiver / Stock Clerk">
+                                Receiver / Stock Clerk
+                            </option>
+
+                            <option value="Pricing Staff">
+                                Pricing Staff
+                            </option>
+
+                            <option value="Marketing Staff">
+                                Marketing Staff
+                            </option>
+
+                            <option value="Manager">
+                                Manager
+                            </option>
+
+                            <option value="Owner">
+                                Owner
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="userStatus">
+                            Status
+                        </label>
+
+                        <select id="userStatus" required>
+                            <option value="Active">
+                                Active
+                            </option>
+
+                            <option value="Inactive">
+                                Inactive
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="userBarcode">
+                            User Barcode
+                        </label>
+
+                        <input type="text" id="userBarcode" autocomplete="off" placeholder="Scan or enter barcode" />
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="userPin">
+                            PIN
+                        </label>
+
+                        <input type="password" id="userPin" maxlength="6" inputmode="numeric"
+                            placeholder="4-6 digit PIN" required />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="confirmPin">
+                            Confirm PIN
+                        </label>
+
+                        <input type="password" id="confirmPin" maxlength="6" inputmode="numeric"
+                            placeholder="Re-enter PIN" required />
+
+                    </div>
+
+                </div>
+
+
+                <div class="permission-card">
+
+                    <h3>Role Access</h3>
+
+                    <p id="rolePermissionText">
+                        Cashier access: POS and basic customer lookup.
+                    </p>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save User
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- DELETE CONFIRMATION -->
+
+    <div id="deleteUserModal" class="confirm-modal hidden">
+
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">
+                !
+            </div>
+
+            <h3>
+                Delete User?
+            </h3>
+
+            <p id="deleteUserMessage">
+                Are you sure you want to delete this user?
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button" id="cancelDeleteUser" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmDeleteUser" class="confirm-danger-btn">
+                    Delete User
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PREMIUM POPUP -->
+
+    <div id="premiumPopup" class="premium-popup hidden">
+
+        <div id="premiumPopupIcon" class="premium-popup-icon">
+            ✓
+        </div>
+
+        <div class="premium-popup-content">
+
+            <strong id="premiumPopupTitle">
+                Success
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Action completed successfully.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="users.js"></script>
+
+</body>
+
+</html>

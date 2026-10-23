@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Settings</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="settings.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="settings-page">
+
+        <section class="page-header">
+            <div>
+                <h1>Settings</h1>
+                <p>
+                    Configure your store, POS terminal,
+                    inventory, receipt, and system preferences.
+                </p>
+            </div>
+
+            <button id="saveAllBtn" class="btn btn-primary">
+                Save Settings
+            </button>
+        </section>
+
+
+        <div id="saveMessage" class="save-message hidden">
+            Settings saved successfully.
+        </div>
+
+
+        <!-- STORE INFORMATION -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Store Information</h2>
+                    <p>
+                        Business information used across IntelliCore POS.
+                    </p>
+                </div>
+            </div>
+
+            <div class="settings-grid">
+
+                <div class="form-group">
+                    <label for="storeName">
+                        Store Name
+                    </label>
+
+                    <input type="text" id="storeName" placeholder="Example: IntelliCore Grocery" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="storeLogo">
+                        Store Logo
+                    </label>
+
+                    <input type="file" id="storeLogo" accept="image/*" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="branchName">
+                        Branch Name
+                    </label>
+
+                    <input type="text" id="branchName" placeholder="Main Branch" />
+                </div>
+
+                <div class="form-group">
+                    <label for="storePhone">
+                        Phone Number
+                    </label>
+
+                    <input type="text" id="storePhone" placeholder="09XXXXXXXXX" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="storeEmail">
+                        Email
+                    </label>
+
+                    <input type="email" id="storeEmail" placeholder="store@email.com" />
+                </div>
+
+
+                <div class="form-group full-width">
+                    <label for="storeAddress">
+                        Store Address
+                    </label>
+
+                    <textarea id="storeAddress" rows="3" placeholder="Complete store address"></textarea>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- POS SETTINGS -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>POS Terminal</h2>
+                    <p>
+                        Configure cashier and checkout behavior.
+                    </p>
+                </div>
+            </div>
+
+            <div class="settings-grid">
+
+                <div class="form-group">
+
+                    <label for="terminalName">
+                        Terminal Name
+                    </label>
+
+                    <input type="text" id="terminalName" placeholder="POS-01" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="currency">
+                        Currency
+                    </label>
+
+                    <select id="currency">
+                        <option value="PHP">
+                            Philippine Peso (₱)
+                        </option>
+
+                        <option value="USD">
+                            US Dollar ($)
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="defaultPayment">
+                        Default Payment
+                    </label>
+
+                    <select id="defaultPayment">
+                        <option value="Cash">Cash</option>
+                        <option value="GCash">GCash</option>
+                        <option value="Maya">Maya</option>
+                        <option value="Card">Card</option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lowStockWarning">
+                        Low Stock Warning Level
+                    </label>
+
+                    <input type="number" id="lowStockWarning" min="0" value="10" />
+
+                </div>
+
+                <div class="form-group">
+                    <label for="maxDiscountPercent">
+                        Max Discount %
+                    </label>
+
+                    <input type="number" id="maxDiscountPercent" min="0" max="100" step="0.01" value="5" />
+                </div>
+
+                <div class="form-group">
+                    <label for="minDiscountPurchase">
+                        Minimum Purchase for Discount
+                    </label>
+
+                    <input type="number" id="minDiscountPurchase" min="0" step="0.01" value="100" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="maxManualDiscountPercent">
+                    Max Manual Discount %
+                </label>
+
+                <input type="number" id="maxManualDiscountPercent" min="0" max="100" step="0.01" value="10" />
+            </div>
+
+            <div class="switch-list">
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Barcode Auto Add</strong>
+                        <span>
+                            Automatically add scanned products to the cart.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="barcodeAutoAdd" checked />
+                </label>
+
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Confirm Before Checkout</strong>
+                        <span>
+                            Ask cashier for confirmation before completing a sale.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="confirmCheckout" checked />
+                </label>
+
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Allow Discounts</strong>
+                        <span>
+                            Allow cashier to apply transaction discounts.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="allowDiscount" checked />
+                </label>
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Enable Manual Discount</strong>
+                        <span>
+                            Allow manual transaction discounts.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="manualDiscountEnabled" checked />
+                </label>
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Require Supervisor Approval</strong>
+                        <span>
+                            Manual discounts require authorized approval.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="manualDiscountRequireApproval" checked />
+                </label>
+
+                <div class="form-group full-width">
+                    <label>
+                        Allowed Approver Roles
+                    </label>
+
+                    <div class="approver-role-options">
+
+                        <label>
+                            <input type="checkbox" id="manualApproverManager" checked />
+                            Manager
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="manualApproverHeadCashier" checked />
+                            Head Cashier
+                        </label>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- POS DISPLAY SETTINGS -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>POS Display</h2>
+                    <p>
+                        Configure product display and promotional carousel.
+                    </p>
+                </div>
+
+                <span class="setting-badge">
+                    Optional
+                </span>
+            </div>
+
+            <div class="settings-grid">
+
+                <div class="form-group">
+                    <label for="posDisplayMode">
+                        Product Display Mode
+                    </label>
+
+                    <select id="posDisplayMode">
+                        <option value="image">Image + Name</option>
+                        <option value="name">Name Only</option>
+                        <option value="compact">Compact</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="carouselInterval">
+                        Carousel Interval
+                    </label>
+
+                    <select id="carouselInterval">
+                        <option value="3000">3 Seconds</option>
+                        <option value="5000" selected>5 Seconds</option>
+                        <option value="10000">10 Seconds</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="switch-list">
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Enable POS Carousel</strong>
+                        <span>
+                            Show promotional banners above the product area.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="posCarouselEnabled" />
+                </label>
+
+            </div>
+
+            <div class="settings-grid">
+
+                <div class="form-group">
+                    <label for="carouselImage1">
+                        Carousel Image 1
+                    </label>
+
+                    <input type="file" id="carouselImage1" accept="image/*" />
+
+                    <img id="carouselPreview1" class="carousel-preview" src="" alt="Carousel Preview 1" />
+                </div>
+
+                <div class="form-group">
+                    <label for="carouselImage2">
+                        Carousel Image 2
+                    </label>
+
+                    <input type="file" id="carouselImage2" accept="image/*" />
+                </div>
+
+                <div class="form-group">
+                    <label for="carouselImage3">
+                        Carousel Image 3
+                    </label>
+
+                    <input type="file" id="carouselImage3" accept="image/*" />
+                </div>
+
+            </div>
+
+            <div class="hybrid-notice">
+                <strong>Recommended Banner Size</strong>
+
+                <p>
+                    1600 × 500 px, 16:5 ratio.
+                    Images will automatically fit standard PC screens.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- INVENTORY SETTINGS -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Inventory</h2>
+                    <p>
+                        Configure stock and inventory behavior.
+                    </p>
+                </div>
+            </div>
+
+            <div class="switch-list">
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Prevent Negative Stock</strong>
+                        <span>
+                            Do not allow sales beyond available stock.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="preventNegativeStock" checked />
+
+                </label>
+
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Low Stock Alerts</strong>
+                        <span>
+                            Show warnings when products reach reorder level.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="enableLowStockAlerts" checked />
+
+                </label>
+
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Expiry Tracking</strong>
+                        <span>
+                            Track product expiration dates.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="expiryTracking" checked />
+
+                </label>
+
+            </div>
+
+        </section>
+
+        <!-- VAT / TAX SETTINGS -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>VAT / Tax Configuration</h2>
+                    <p>
+                        Configure VAT behavior for POS sales,
+                        receipts, and invoices.
+                    </p>
+                </div>
+            </div>
+
+            <div class="switch-list">
+
+                <label class="switch-row">
+                    <div>
+                        <strong>Enable VAT</strong>
+                        <span>
+                            Apply VAT calculation to taxable sales.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="vatEnabled" />
+                </label>
+
+            </div>
+
+            <div class="settings-grid">
+
+                <div class="form-group">
+                    <label for="vatPercent">
+                        VAT %
+                    </label>
+
+                    <input type="number" id="vatPercent" min="0" max="100" step="0.01" value="12" />
+                </div>
+
+                <div class="form-group">
+                    <label for="vatMode">
+                        VAT Mode
+                    </label>
+
+                    <select id="vatMode">
+                        <option value="inclusive">
+                            VAT Inclusive
+                        </option>
+
+                        <option value="exclusive">
+                            VAT Exclusive
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RECEIPT SETTINGS -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Receipt</h2>
+                    <p>
+                        Customize printed receipt information.
+                    </p>
+                </div>
+            </div>
+
+            <div class="settings-grid">
+
+                <div class="form-group full-width">
+
+                    <label for="receiptHeader">
+                        Receipt Header
+                    </label>
+
+                    <input type="text" id="receiptHeader" placeholder="Thank you for shopping with us!" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="receiptProductNameMaxLength">
+                        Product Name Max Characters
+                    </label>
+
+                    <input type="number" id="receiptProductNameMaxLength" min="10" max="80" value="26" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="receiptPaperSize">
+                        Receipt Paper Size
+                    </label>
+
+                    <select id="receiptPaperSize">
+                        <option value="80mm" selected>
+                            80mm Thermal
+                        </option>
+
+                        <option value="58mm">
+                            58mm Thermal
+                        </option>
+                    </select>
+
+                </div>
+
+                <div class="switch-list">
+
+                    <label class="switch-row">
+                        <div>
+                            <strong>Show SKU on Receipt</strong>
+                            <span>
+                                Display product SKU below the product title.
+                            </span>
+                        </div>
+
+                        <input type="checkbox" id="receiptShowSku" checked />
+                    </label>
+
+                    <label class="switch-row">
+                        <div>
+                            <strong>Show Barcode on Receipt</strong>
+                            <span>
+                                Display product barcode below the SKU.
+                            </span>
+                        </div>
+
+                        <input type="checkbox" id="receiptShowBarcode" checked />
+                    </label>
+
+                </div>
+
+                <div class="form-group full-width">
+
+                    <button type="button" id="viewReceiptSampleBtn" class="btn btn-secondary">
+                        View Receipt Sample
+                    </button>
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label for="receiptFooter">
+                        Receipt Footer
+                    </label>
+
+                    <textarea id="receiptFooter" rows="3"
+                        placeholder="This serves as your official receipt."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="switch-list">
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Print Receipt After Sale</strong>
+                        <span>
+                            Automatically open the receipt after checkout.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="autoPrintReceipt" />
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMER DISPLAY -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Customer Display</h2>
+                    <p>
+                        Configure the optional second customer-facing display.
+                    </p>
+                </div>
+
+                <span class="setting-badge">
+                    Optional
+                </span>
+
+            </div>
+
+
+            <div class="switch-list">
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Enable Customer Display</strong>
+                        <span>
+                            Show transaction details on a second screen.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="customerDisplayEnabled" />
+
+                </label>
+
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Show Product Images</strong>
+                        <span>
+                            Display product photos on the customer screen.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="customerDisplayImages" checked />
+
+                </label>
+
+
+                <label class="switch-row">
+
+                    <div>
+                        <strong>Show Promotions While Idle</strong>
+                        <span>
+                            Display promotional content when there is no sale.
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="customerDisplayPromos" checked />
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- SYSTEM MODE -->
+
+        <section class="settings-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>System Mode</h2>
+                    <p>
+                        View the current IntelliCore POS operating mode.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="mode-grid">
+
+                <label class="mode-card">
+
+                    <input type="radio" name="systemMode" value="offline" checked />
+
+                    <div>
+                        <strong>Offline POS</strong>
+                        <span>
+                            Local store operation without cloud synchronization.
+                        </span>
+                    </div>
+
+                </label>
+
+
+                <label class="mode-card">
+
+                    <input type="radio" name="systemMode" value="hybrid" />
+
+                    <div>
+                        <strong>Hybrid Cloud</strong>
+                        <span>
+                            Local-first POS with cloud synchronization
+                            and remote dashboard.
+                        </span>
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <div id="hybridNotice" class="hybrid-notice hidden">
+
+                <strong>Hybrid Cloud Add-on</strong>
+
+                <p>
+                    Cloud synchronization requires an active
+                    IntelliCore Hybrid license.
+                </p>
+
+                <button type="button" id="upgradeBtn" class="btn btn-primary">
+                    View Upgrade
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESET -->
+
+        <section class="settings-card danger-zone">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Reset Settings</h2>
+                    <p>
+                        Restore system preferences to default values.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <button id="resetSettingsBtn" class="btn btn-danger" type="button">
+                Reset Settings
+            </button>
+
+        </section>
+
+        <div class="settings-section">
+
+            <h3>Loyalty Program</h3>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="loyaltySpendAmount">
+                        Spend Amount
+                    </label>
+
+                    <input type="number" id="loyaltySpendAmount" min="1" step="0.01" value="200" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="loyaltyPointsEarned">
+                        Points Earned
+                    </label>
+
+                    <input type="number" id="loyaltyPointsEarned" min="0" step="0.01" value="1" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <div id="receiptSampleModal" class="receipt-sample-modal hidden">
+
+        <div class="receipt-sample-card">
+
+            <button type="button" id="closeReceiptSampleBtn" class="receipt-sample-close">
+                ×
+            </button>
+
+            <h3>Receipt Preview</h3>
+
+            <div id="receiptSampleContent">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="settings.js"></script>
+
+</body>
+
+</html>

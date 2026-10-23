@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Expenses</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="expenses.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="expenses-page">
+
+        <section class="page-header">
+
+            <div>
+                <h1>Expenses</h1>
+                <p>
+                    Record and manage store operating expenses.
+                </p>
+            </div>
+
+            <button id="addExpenseBtn" class="btn btn-primary" type="button">
+                + Add Expense
+            </button>
+
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search expense..." />
+
+            <select id="categoryFilter">
+                <option value="all">
+                    All Categories
+                </option>
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Reference</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="expenseTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <div id="expensePagination" class="expense-pagination">
+
+            <button id="prevPageBtn" type="button">
+                Prev
+            </button>
+
+            <div id="pageNumbers" class="page-numbers"></div>
+
+            <button id="nextPageBtn" type="button">
+                Next
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- ADD / EDIT EXPENSE MODAL -->
+
+    <div id="expenseModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modalTitle">
+                        Add Expense
+                    </h2>
+
+                    <p>
+                        Enter expense information.
+                    </p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <form id="expenseForm">
+
+                <input type="hidden" id="expenseId" />
+
+
+                <div class="form-group">
+
+                    <label for="expenseDate">
+                        Date
+                    </label>
+
+                    <input type="date" id="expenseDate" required />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expenseCategory">
+                        Expense Category
+                    </label>
+
+                    <select id="expenseCategory" required></select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expenseDescription">
+                        Description
+                    </label>
+
+                    <input type="text" id="expenseDescription" required />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expenseAmount">
+                        Amount
+                    </label>
+
+                    <input type="number" id="expenseAmount" min="0" step="0.01" required />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expensePaymentMethod">
+                        Payment Method
+                    </label>
+
+                    <select id="expensePaymentMethod">
+
+                        <option value="Cash">
+                            Cash
+                        </option>
+
+                        <option value="GCash">
+                            GCash
+                        </option>
+
+                        <option value="Maya">
+                            Maya
+                        </option>
+
+                        <option value="Bank Transfer">
+                            Bank Transfer
+                        </option>
+
+                        <option value="Card">
+                            Card
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expenseReference">
+                        Reference No.
+                    </label>
+
+                    <input type="text" id="expenseReference" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expenseNotes">
+                        Notes
+                    </label>
+
+                    <textarea id="expenseNotes" rows="3"></textarea>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Expense
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div id="deleteExpenseModal" class="confirm-modal hidden">
+
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">
+                !
+            </div>
+
+            <h3>
+                Delete Expense
+            </h3>
+
+            <p id="deleteExpenseMessage">
+                Are you sure you want to delete this expense?
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button" id="cancelDeleteExpense" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmDeleteExpense" class="confirm-danger-btn">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="premiumPopup" class="premium-popup hidden">
+        <div id="premiumPopupIcon" class="premium-popup-icon">
+            ✓
+        </div>
+
+        <div class="premium-popup-content">
+
+            <strong id="premiumPopupTitle">
+                Success
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Action completed successfully.
+            </span>
+
+        </div>
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="expenses.js"></script>
+
+</body>
+
+</html>

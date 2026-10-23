@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Customers</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="customers.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="customers-page">
+
+        <section class="page-header">
+
+            <div>
+                <h1>Customers</h1>
+                <p>
+                    Manage customer records, contact details,
+                    loyalty points, and account status.
+                </p>
+            </div>
+
+            <button id="addCustomerBtn" class="btn btn-primary">
+                + Add Customer
+            </button>
+
+        </section>
+
+
+        <section class="customer-stats">
+
+            <article class="stat-card">
+                <span>Total Customers</span>
+                <strong id="totalCustomers">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Active Customers</span>
+                <strong id="activeCustomers">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>VIP Customers</span>
+                <strong id="vipCustomers">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Total Loyalty Points</span>
+                <strong id="totalLoyaltyPoints">0</strong>
+            </article>
+
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search name, phone, email..." />
+
+            <select id="typeFilter">
+                <option value="all">All Customer Types</option>
+                <option value="Regular">Regular</option>
+                <option value="VIP">VIP</option>
+                <option value="Wholesale">Wholesale</option>
+            </select>
+
+            <select id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-header">
+                <div>
+                    <h2>Customer List</h2>
+                    <p>Registered customers in IntelliCore POS.</p>
+                </div>
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Customer</th>
+                            <th>Member ID</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Type</th>
+                            <th>Loyalty Points</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="customerTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div id="customerPagination" class="customer-pagination">
+
+            <button id="prevCustomerPageBtn" type="button">
+                Prev
+            </button>
+
+            <div id="customerPageNumbers" class="customer-page-numbers"></div>
+
+            <button id="nextCustomerPageBtn" type="button">
+                Next
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- CUSTOMER MODAL -->
+
+    <div id="customerModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modalTitle">Add Customer</h2>
+                    <p>Enter customer information.</p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <form id="customerForm">
+
+                <input type="hidden" id="customerId" />
+
+                <!-- CUSTOMER MEMBERSHIP -->
+
+                <div class="form-group">
+
+                    <label for="customerPhoto">
+                        Customer Photo
+                    </label>
+
+                    <input type="file" id="customerPhoto" accept="image/*" />
+
+                    <img id="customerPhotoPreview" class="customer-photo-preview" src="" alt="Customer Photo" />
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="memberId">
+                            Member ID
+                        </label>
+
+                        <input type="text" id="memberId" placeholder="VIP-000001" readonly />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="customerBarcode">
+                            Customer Barcode
+                        </label>
+
+                        <div class="barcode-input-group">
+
+                            <input type="text" id="customerBarcode" placeholder="290000000001" readonly />
+
+                            <button type="button" id="generateBarcodeBtn" class="btn btn-secondary">
+                                Generate
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="firstName">
+                            First Name
+                        </label>
+
+                        <input type="text" id="firstName" required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lastName">
+                            Last Name
+                        </label>
+
+                        <input type="text" id="lastName" required />
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="customerPhone">
+                            Phone Number
+                        </label>
+
+                        <input type="text" id="customerPhone" placeholder="09XXXXXXXXX" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="customerEmail">
+                            Email
+                        </label>
+
+                        <input type="email" id="customerEmail" placeholder="customer@email.com" />
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="customerAddress">
+                        Address
+                    </label>
+
+                    <textarea id="customerAddress" rows="3" placeholder="Customer address"></textarea>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="customerType">
+                            Customer Type
+                        </label>
+
+                        <select id="customerType">
+
+                            <option value="Regular">
+                                Regular
+                            </option>
+
+                            <option value="VIP">
+                                VIP
+                            </option>
+
+                            <option value="Wholesale">
+                                Wholesale
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="loyaltyPoints">
+                            Loyalty Points
+                        </label>
+
+                        <input type="number" id="loyaltyPoints" min="0" step="0.01" value="0" />
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="customerStatus">
+                        Status
+                    </label>
+
+                    <select id="customerStatus">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Customer
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- PREMIUM ALERT -->
+
+    <div id="premiumPopup" class="premium-popup hidden">
+        <div id="premiumPopupIcon" class="premium-popup-icon">
+            ✓
+        </div>
+
+        <div class="premium-popup-content">
+
+            <strong id="premiumPopupTitle">
+                Success
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Customer saved successfully.
+            </span>
+
+        </div>
+    </div>
+
+    <!-- DELETE CUSTOMER CONFIRMATION -->
+
+    <div id="deleteCustomerModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">!</div>
+
+            <h3>Delete Customer?</h3>
+
+            <p id="deleteCustomerMessage">
+                Are you sure you want to delete this customer?
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button" id="cancelDeleteCustomer" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmDeleteCustomer" class="confirm-danger-btn">
+                    Delete Customer
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="customers.js"></script>
+</body>
+
+</html>

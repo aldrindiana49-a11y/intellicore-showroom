@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IntelliCore POS - Login</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card">
+
+            <div class="login-brand">
+                <h1>IntelliCore POS</h1>
+                <p>Sign in to continue</p>
+            </div>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="loginUsername">
+                        Username
+                    </label>
+
+                    <input type="text" id="loginUsername" autocomplete="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPin">
+                        PIN
+                    </label>
+
+                    <input type="password" id="loginPin" inputmode="numeric" maxlength="6"
+                        autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Sign In
+                </button>
+
+            </form>
+
+            <p id="loginMessage" class="login-message"></p>
+
+        </section>
+
+    </main>
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>

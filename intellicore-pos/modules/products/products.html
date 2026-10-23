@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IntelliCore POS - Grocery Products</title>
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="products.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="products-page">
+        <section class="page-header">
+            <div>
+                <h1>Products</h1>
+                <p>Manage grocery products, pricing, stock, suppliers, and expiry dates.</p>
+            </div>
+
+            <button id="addProductBtn" class="btn btn-primary">
+                + Add Product
+            </button>
+        </section>
+
+        <section class="toolbar">
+            <input type="text" id="searchInput" placeholder="Search product, SKU, barcode, brand..." />
+
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Snacks">Snacks</option>
+                <option value="Canned Goods">Canned Goods</option>
+                <option value="Rice & Grains">Rice & Grains</option>
+                <option value="Frozen Goods">Frozen Goods</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Personal Care">Personal Care</option>
+                <option value="Household">Household</option>
+                <option value="Condiments">Condiments</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                <option value="Meat & Poultry">Meat & Poultry</option>
+            </select>
+        </section>
+
+        <section class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>Barcode</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Unit</th>
+                            <th>Cost</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Reorder</th>
+                            <th>Expiry</th>
+                            <th>Supplier</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="productTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <div id="productPagination" class="product-pagination">
+            <button id="prevPageBtn" type="button">Prev</button>
+
+            <div id="pageNumbers" class="page-numbers"></div>
+
+            <button id="nextPageBtn" type="button">Next</button>
+        </div>
+
+    </main>
+
+    <div id="productModal" class="modal hidden">
+        <div class="modal-card">
+
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Add Product</h2>
+                    <p>Enter grocery product information.</p>
+                </div>
+
+                <button id="closeModalBtn" class="close-btn">&times;</button>
+            </div>
+
+            <form id="productForm">
+
+                <input type="hidden" id="productId" />
+
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="productImage">Product Image</label>
+
+                    <input type="file" id="productImage" accept="image/*" />
+
+                    <div class="image-preview-box">
+                        <img id="imagePreview" src="" alt="Product Preview" class="hidden" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productSku">SKU</label>
+                        <input type="text" id="productSku" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productBarcode">Barcode</label>
+                        <input type="text" id="productBarcode" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productCategory">Category</label>
+
+                        <select id="productCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Beverages">Beverages</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Canned Goods">Canned Goods</option>
+                            <option value="Rice & Grains">Rice & Grains</option>
+                            <option value="Frozen Goods">Frozen Goods</option>
+                            <option value="Dairy">Dairy</option>
+                            <option value="Personal Care">Personal Care</option>
+                            <option value="Household">Household</option>
+                            <option value="Condiments">Condiments</option>
+                            <option value="Bakery">Bakery</option>
+                            <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                            <option value="Meat & Poultry">Meat & Poultry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productBrand">Brand</label>
+
+                        <select id="productBrand">
+                            <option value="No Brand">
+                                No Brand
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productUnit">Unit</label>
+
+                        <select id="productUnit" required>
+                            <option value="">Select Unit</option>
+                            <option value="PCS">PCS</option>
+                            <option value="PACK">PACK</option>
+                            <option value="BOX">BOX</option>
+                            <option value="BOTTLE">BOTTLE</option>
+                            <option value="CAN">CAN</option>
+                            <option value="SACHET">SACHET</option>
+                            <option value="KG">KG</option>
+                            <option value="GRAM">GRAM</option>
+                            <option value="LITER">LITER</option>
+                            <option value="ML">ML</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productSupplier">Supplier</label>
+                        <input type="text" id="productSupplier" placeholder="Supplier name" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productCost">Cost Price</label>
+                        <input type="number" id="productCost" min="0" step="0.01" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productPrice">Selling Price</label>
+                        <input type="number" id="productPrice" min="0" step="0.01" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productStock">Stock Quantity</label>
+                        <input type="number" id="productStock" min="0" step="1" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productReorderLevel">Reorder Level</label>
+                        <input type="number" id="productReorderLevel" min="0" step="1" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productExpiry">Expiry Date</label>
+                        <input type="date" id="productExpiry" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productStatus">Status</label>
+
+                        <select id="productStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Product
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="premiumPopup" class="premium-popup hidden">
+        <div id="premiumPopupIcon" class="premium-popup-icon">!</div>
+
+        <div class="premium-popup-content">
+            <strong id="premiumPopupTitle">Alert</strong>
+            <span id="premiumPopupMessage">Message</span>
+        </div>
+    </div>
+
+    <div id="deleteProductModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">!</div>
+
+            <h3>Delete Product?</h3>
+
+            <p id="deleteProductMessage">
+                Are you sure you want to delete this product?
+            </p>
+
+            <div class="confirm-actions">
+                <button id="cancelDeleteProduct" class="confirm-cancel-btn" type="button">
+                    Cancel
+                </button>
+
+                <button id="confirmDeleteProduct" class="confirm-danger-btn" type="button">
+                    Delete
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="products.js"></script>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Terminal</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="pos.css" />
+
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="pos-page">
+
+        <section class="pos-header">
+
+            <div>
+                <h1>POS Terminal</h1>
+                <p>Process customer purchases quickly and accurately.</p>
+            </div>
+
+            <div class="terminal-info">
+                <span id="currentDate"></span>
+                <strong>Cashier</strong>
+            </div>
+
+        </section>
+
+
+        <section class="pos-layout">
+
+            <!-- LEFT SIDE -->
+
+            <div class="products-panel">
+
+                <div class="search-section">
+
+                    <input type="text" id="productSearch"
+                        placeholder="Search product / SKU / barcode / scan customer card" autocomplete="off" />
+
+                    <select id="categoryFilter" class="category-filter">
+                        <option value="all">All Categories</option>
+                    </select>
+
+                </div>
+
+                <div id="posCarousel" class="pos-carousel hidden">
+
+                    <div class="pos-carousel-track">
+
+                        <img id="posCarouselImage" class="pos-carousel-image" src="" alt="Promotion" />
+
+                    </div>
+
+                    <div id="posCarouselDots" class="pos-carousel-dots">
+                    </div>
+
+                </div>
+
+                <div id="productGrid" class="product-grid"></div>
+
+                <div class="pos-quick-footer">
+
+                    <div class="quick-payment-group">
+                        <button type="button" class="quick-pay-btn" data-payment="Cash">
+                            Cash
+                        </button>
+
+                        <button type="button" class="quick-pay-btn" data-payment="GCash">
+                            GCash
+                        </button>
+
+                        <button type="button" class="quick-pay-btn" data-payment="Maya">
+                            Maya
+                        </button>
+
+                        <button type="button" class="quick-pay-btn" data-payment="Card">
+                            Card
+                        </button>
+
+                        <button type="button" class="quick-pay-btn" data-payment="Split">
+                            Split Payment
+                        </button>
+                    </div>
+
+                    <div class="quick-sale-info">
+                        <span id="quickItemCount">0 Items</span>
+                        <strong id="quickTotal">₱0.00</strong>
+                    </div>
+
+                </div>
+
+                <div id="productPagination" class="product-pagination hidden">
+
+                    <button id="prevPageBtn" type="button">
+                        Prev
+                    </button>
+
+                    <span id="pageInfo">
+                        Page 1 of 1
+                    </span>
+
+                    <button id="nextPageBtn" type="button">
+                        Next
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <aside class="cart-panel">
+
+                <div class="cart-header">
+                    <div>
+                        <h2>Current Order</h2>
+                        <p id="cartItemCount">0 items</p>
+                    </div>
+
+                    <button id="clearCartBtn" class="text-btn danger-text">
+                        Clear
+                    </button>
+                </div>
+
+                <div id="selectedCustomerCard" class="selected-customer-card hidden">
+                    <div class="selected-customer-info">
+
+                        <img id="selectedCustomerPhoto" class="selected-customer-photo" src="" alt="Customer" />
+
+                        <div>
+
+                            <div id="selectedCustomerName" class="selected-customer-name"></div>
+
+                            <div id="selectedCustomerMeta" class="selected-customer-meta"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="selected-customer-actions">
+
+                        <button type="button" id="viewSelectedCustomerBtn" class="view-selected-customer-btn">
+                            View Details
+                        </button>
+
+                        <button type="button" id="removeSelectedCustomerBtn" class="remove-selected-customer-btn">
+                            Remove
+                        </button>
+
+                    </div>
+                </div>
+
+
+                <div id="cartItems" class="cart-items"></div>
+
+
+                <div class="cart-summary">
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+
+                        <strong id="subtotalAmount">
+                            ₱0.00
+                        </strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="discountCategory">
+                            Discount Type
+                        </label>
+
+                        <select id="discountCategory">
+                            <option value="regular">
+                                Regular Discount
+                            </option>
+
+                            <option value="senior-pwd">
+                                Senior / PWD
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="summary-row discount-auto-row">
+
+                        <span>Discount</span>
+
+                        <div class="discount-auto-control">
+
+                            <strong id="discountAmountDisplay">
+                                ₱0.00
+                            </strong>
+
+                            <button type="button" id="applyDiscountBtn" class="discount-max-btn">
+                                Apply Discount
+                            </button>
+
+                            <button type="button" id="clearDiscountBtn" class="clear-discount-btn" disabled>
+                                Clear Discount
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="manual-discount-box">
+
+                        <div class="manual-discount-header">
+                            <span>Manual Discount</span>
+                        </div>
+
+                        <div class="manual-discount-controls">
+
+                            <select id="manualDiscountType">
+                                <option value="amount">
+                                    Amount
+                                </option>
+
+                                <option value="percent">
+                                    Percentage
+                                </option>
+                            </select>
+
+                            <input type="number" id="manualDiscountValue" min="0" step="0.01" placeholder="0.00" />
+
+                        </div>
+
+                        <button type="button" id="requestManualDiscountBtn" class="manual-discount-btn">
+                            Request Supervisor Approval
+                        </button>
+
+                    </div>
+
+                    <div id="discountPolicySummary" class="discount-policy-summary">
+                        No discount applied.
+                    </div>
+
+                    <div class="summary-row total-row">
+
+                        <span>Total</span>
+
+                        <strong id="totalAmount">
+                            ₱0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="payment-section">
+
+                    <h3>Payment</h3>
+
+
+                    <div class="form-group">
+
+                        <label for="paymentMethod">
+                            Payment Method
+                        </label>
+
+                        <select id="paymentMethod">
+                            <option value="Cash">
+                                Cash
+                            </option>
+
+                            <option value="GCash">
+                                GCash
+                            </option>
+
+                            <option value="Card">
+                                Card
+                            </option>
+
+                            <option value="Maya">
+                                Maya
+                            </option>
+
+                            <option value="Split">Split Payment</option>
+
+                        </select>
+
+                    </div>
+
+                    <div id="splitPaymentGroup" class="split-payment-group hidden">
+
+                        <div class="split-payment-row">
+                            <label for="splitCash">Cash</label>
+                            <input type="number" id="splitCash" min="0" step="0.01" value="0">
+                        </div>
+
+                        <div class="split-payment-row">
+                            <label for="splitGCash">GCash</label>
+                            <input type="number" id="splitGCash" min="0" step="0.01" value="0">
+                        </div>
+
+                        <div class="split-payment-row">
+                            <label for="splitMaya">Maya</label>
+                            <input type="number" id="splitMaya" min="0" step="0.01" value="0">
+                        </div>
+
+                        <div class="split-payment-row">
+                            <label for="splitCard">Card</label>
+                            <input type="number" id="splitCard" min="0" step="0.01" value="0">
+                        </div>
+
+                        <div class="split-payment-summary">
+                            <span>Paid</span>
+                            <strong id="splitPaidAmount">₱0.00</strong>
+                        </div>
+
+                        <div class="split-payment-summary">
+                            <span>Remaining</span>
+                            <strong id="splitRemainingAmount">₱0.00</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group" id="cashPaymentGroup">
+
+                        <label for="cashTendered">
+                            Cash Tendered
+                        </label>
+
+                        <input type="number" id="cashTendered" min="0" step="0.01" placeholder="0.00" />
+
+                    </div>
+
+
+                    <div class="change-box">
+
+                        <span>Change</span>
+
+                        <strong id="changeAmount">
+                            ₱0.00
+                        </strong>
+
+                    </div>
+
+
+                    <button id="checkoutBtn" class="checkout-btn">
+                        Complete Sale
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+        <footer class="pos-footer-credit">
+            Powered by IntelliCore System • © 2026 IntelliCore System. All rights reserved.
+        </footer>
+
+    </main>
+
+    <!-- MANUAL DISCOUNT APPROVAL MODAL -->
+    <div id="manualDiscountModal" class="modal hidden">
+
+        <div class="manual-discount-modal-card">
+
+            <div class="manual-discount-modal-header">
+                <div>
+                    <h2>Manual Discount Approval</h2>
+                    <p>Supervisor authorization required.</p>
+                </div>
+
+                <button type="button" id="closeManualDiscountModalBtn" class="close-btn">
+                    ×
+                </button>
+            </div>
+
+            <div class="manual-discount-review">
+
+                <div class="manual-review-row">
+                    <span>Type</span>
+                    <strong id="manualReviewType">—</strong>
+                </div>
+
+                <div class="manual-review-row">
+                    <span>Requested</span>
+                    <strong id="manualReviewRequested">—</strong>
+                </div>
+
+                <div class="manual-review-row">
+                    <span>Discount Amount</span>
+                    <strong id="manualReviewAmount">₱0.00</strong>
+                </div>
+
+                <div class="manual-review-row">
+                    <span>Subtotal</span>
+                    <strong id="manualReviewSubtotal">₱0.00</strong>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="manualDiscountReason">
+                    Reason
+                </label>
+
+                <select id="manualDiscountReason">
+                    <option value="">
+                        Select reason
+                    </option>
+
+                    <option value="Price Match">
+                        Price Match
+                    </option>
+
+                    <option value="Customer Complaint">
+                        Customer Complaint
+                    </option>
+
+                    <option value="Damaged Packaging">
+                        Damaged Packaging
+                    </option>
+
+                    <option value="Promo Exception">
+                        Promo Exception
+                    </option>
+
+                    <option value="Management Approved">
+                        Management Approved
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="supervisorBarcode">
+                    Supervisor ID / Barcode
+                </label>
+
+                <input type="text" id="supervisorBarcode" autocomplete="off"
+                    placeholder="Scan supervisor ID or barcode" />
+            </div>
+
+            <div class="form-group">
+                <label for="supervisorPin">
+                    Supervisor PIN
+                </label>
+
+                <input type="password" id="supervisorPin" inputmode="numeric" autocomplete="off"
+                    placeholder="Enter supervisor PIN" />
+            </div>
+
+            <div class="manual-discount-modal-actions">
+
+                <button type="button" id="cancelManualDiscountBtn" class="secondary-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="approveManualDiscountBtn" class="primary-btn">
+                    Approve Discount
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- NUMERIC KEYPAD MODAL -->
+
+    <div id="numericKeypadModal" class="modal hidden">
+
+        <div class="numeric-keypad-card">
+
+            <div class="numeric-keypad-header">
+                <h2 id="numericKeypadTitle">
+                    Cash Tendered
+                </h2>
+
+                <button type="button" id="numericKeypadCloseBtn" class="close-btn">
+                    ×
+                </button>
+            </div>
+
+            <div id="numericKeypadDisplay" class="numeric-keypad-display">
+                ₱0.00
+            </div>
+
+            <div class="numeric-keypad-grid">
+
+                <button type="button" data-key="7">7</button>
+                <button type="button" data-key="8">8</button>
+                <button type="button" data-key="9">9</button>
+
+                <button type="button" data-key="4">4</button>
+                <button type="button" data-key="5">5</button>
+                <button type="button" data-key="6">6</button>
+
+                <button type="button" data-key="1">1</button>
+                <button type="button" data-key="2">2</button>
+                <button type="button" data-key="3">3</button>
+
+                <button type="button" data-key="clear">C</button>
+                <button type="button" data-key="0">0</button>
+                <button type="button" data-key=".">.</button>
+
+            </div>
+
+            <div class="numeric-keypad-actions">
+
+                <button type="button" id="numericKeypadBackspaceBtn">
+                    ⌫
+                </button>
+
+                <button type="button" id="numericKeypadCancelBtn">
+                    Cancel
+                </button>
+
+                <button type="button" id="numericKeypadApplyBtn">
+                    Apply
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CUSTOMER DETAILS MODAL -->
+
+    <div id="customerDetailsModal" class="modal hidden">
+
+        <div class="customer-details-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Customer Details</h2>
+                    <p>Verify customer information before redemption.</p>
+                </div>
+
+                <button id="closeCustomerDetailsBtn" class="close-btn" type="button">
+                    &times;
+                </button>
+
+            </div>
+
+            <div class="customer-details-body">
+
+                <img id="customerDetailsPhoto" class="customer-details-photo" src="" alt="Customer Photo" />
+
+                <div class="customer-details-info">
+
+                    <h3 id="customerDetailsName"></h3>
+
+                    <p>
+                        <strong>Member ID:</strong>
+                        <span id="customerDetailsMemberId"></span>
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        <span id="customerDetailsPhone"></span>
+                    </p>
+
+                    <p>
+                        <strong>Type:</strong>
+                        <span id="customerDetailsType"></span>
+                    </p>
+
+                    <p>
+                        <strong>Loyalty Points:</strong>
+                        <span id="customerDetailsPoints"></span>
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span id="customerDetailsStatus"></span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RECEIPT MODAL -->
+
+    <div id="receiptModal" class="modal hidden">
+
+        <div class="receipt-card">
+
+            <div class="receipt-header">
+
+                <div>
+                    <h2>Sale Complete</h2>
+                    <p>Transaction successfully saved.</p>
+                </div>
+
+                <button id="closeReceiptBtn" class="close-btn">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <div id="receiptContent" class="receipt-content"></div>
+
+
+            <div class="receipt-actions">
+
+                <button id="printReceiptBtn" class="secondary-btn">
+                    Print Receipt
+                </button>
+
+                <button id="newSaleBtn" class="primary-btn">
+                    New Sale
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="premiumPopup" class="premium-popup hidden">
+        <div class="premium-popup-icon" id="premiumPopupIcon">
+            ✓
+        </div>
+
+        <div class="premium-popup-content">
+            <strong id="premiumPopupTitle">
+                Success
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Product added to cart.
+            </span>
+        </div>
+    </div>
+
+    <div id="clearCartModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+            <div class="confirm-icon">!</div>
+
+            <h3>Clear Current Order?</h3>
+
+            <p>
+                All items in the current cart will be removed.
+                This action cannot be undone.
+            </p>
+
+            <div class="confirm-actions">
+                <button type="button" id="cancelClearCart" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmClearCart" class="confirm-danger-btn">
+                    Clear Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REMOVE CUSTOMER CONFIRMATION -->
+
+    <div id="removeCustomerModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">!</div>
+
+            <h3>Remove Customer?</h3>
+
+            <p>
+                Are you sure you want to remove the selected customer
+                from this current order?
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button" id="cancelRemoveCustomer" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmRemoveCustomer" class="confirm-danger-btn">
+                    Remove Customer
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="completeSaleModal" class="confirm-modal hidden">
+        <div class="confirm-modal-card">
+            <div class="confirm-icon sale-icon">✓</div>
+
+            <h3>Complete Sale?</h3>
+
+            <p>
+                Confirm payment and finalize this transaction.
+            </p>
+
+            <div class="confirm-actions">
+                <button type="button" id="cancelCompleteSale" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmCompleteSale" class="confirm-primary-btn">
+                    Complete Sale
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="pos.js"></script>
+</body>
+
+</html>

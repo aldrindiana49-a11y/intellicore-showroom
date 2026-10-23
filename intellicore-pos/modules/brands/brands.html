@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>IntelliCore POS - Brands</title>
+
+    <link rel="stylesheet" href="../../components/sidebar.css" />
+    <link rel="stylesheet" href="../../components/header.css" />
+    <link rel="stylesheet" href="brands.css" />
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="brands-page">
+
+        <section class="page-header">
+
+            <div>
+                <h1>Brands</h1>
+                <p>Manage product brands used across IntelliCore POS.</p>
+            </div>
+
+            <button id="addBrandBtn" class="btn btn-primary">
+                + Add Brand
+            </button>
+
+        </section>
+
+
+        <section class="toolbar">
+
+            <input type="text" id="searchInput" placeholder="Search brands..." />
+
+            <select id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Brand</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="brandTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- BRAND MODAL -->
+
+    <div id="brandModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modalTitle">Add Brand</h2>
+                    <p>Add or edit a product brand.</p>
+                </div>
+
+                <button type="button" id="closeModalBtn" class="close-btn">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="brandForm">
+
+                <input type="hidden" id="brandId" />
+
+
+                <div class="form-group">
+
+                    <label for="brandName">
+                        Brand Name
+                    </label>
+
+                    <input type="text" id="brandName" required />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="brandDescription">
+                        Description
+                    </label>
+
+                    <textarea id="brandDescription" rows="3"></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="brandStatus">
+                        Status
+                    </label>
+
+                    <select id="brandStatus">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Brand
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- PREMIUM POPUP -->
+
+    <div id="premiumPopup" class="premium-popup hidden">
+
+        <div id="premiumPopupIcon" class="premium-popup-icon">
+            ✓
+        </div>
+
+        <div class="premium-popup-content">
+
+            <strong id="premiumPopupTitle">
+                Success
+            </strong>
+
+            <span id="premiumPopupMessage">
+                Action completed successfully.
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- DELETE BRAND MODAL -->
+
+    <div id="deleteBrandModal" class="confirm-modal hidden">
+
+        <div class="confirm-modal-card">
+
+            <div class="confirm-icon">
+                !
+            </div>
+
+            <h3>
+                Delete Brand
+            </h3>
+
+            <p id="deleteBrandMessage">
+                Are you sure you want to delete this brand?
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button" id="cancelDeleteBrand" class="confirm-cancel-btn">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmDeleteBrand" class="confirm-danger-btn">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/header.js"></script>
+    <script src="../../components/auth.js"></script>
+    <script src="brands.js"></script>
+
+</body>
+
+</html>
